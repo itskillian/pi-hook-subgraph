@@ -1,0 +1,28 @@
+type AfterSwapAnalytics @entity(immutable: true) {
+  id: Bytes!
+  poolId: Bytes! # bytes32
+  sender: Bytes! # address
+  sqrtPriceX96: BigInt! # uint256
+  swapAmount1: BigInt! # uint256
+  priceImpact: BigInt! # uint256
+  illiq: BigInt! # uint256
+  timestamp: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BeforeSwapAnalytics @entity(immutable: true) {
+  id: Bytes!
+  poolId: Bytes! # bytes32
+  sender: Bytes! # address
+  sqrtPriceX96: BigInt! # uint256
+  estimatedSwapAmount1: BigInt! # uint256
+  estimatedPriceImpact: BigInt! # uint256
+  dynamicFee: Int! # uint24
+  zeroForOne: Boolean! # bool
+  timestamp: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
