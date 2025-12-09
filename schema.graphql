@@ -1,28 +1,84 @@
-type AfterSwapAnalytics @entity(immutable: true) {
-  id: Bytes!
-  poolId: Bytes! # bytes32
-  sender: Bytes! # address
-  sqrtPriceX96: BigInt! # uint256
-  swapAmount1: BigInt! # uint256
-  priceImpact: BigInt! # uint256
-  illiq: BigInt! # uint256
-  timestamp: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type Pool @entity(immutable: false) { # TODO add hook pool initialize event
+  # poolId
+  id: ID!
+  # creation
+  createdAtTimestamp: BigInt!
+  # block pool was created at
+  createdAtBlockNumber: BigInt!
+  # token0 address
+  token0: String!
+  # token1 address
+  token1: String!
+  # fee amount
+  feeTier: BigInt!
+  # tick spacing
+  tickSpacing: BigInt!
+  # hook address
+  hooks: String!
+  # current price tracker
+  sqrtPriceX96: BigInt!
+  # estimated swap amount token1
+  estimatedSwapAmount1: BigInt!
+  # estimated price impact
+  estimatedPriceImpact: BigInt!
+  # real swap amount token1
+  swapAmount1: BigInt!
+  # real price impact
+  priceImpact: BigInt!
+  # dynamic fee charged in pips of last swap
+  dynamicFeePips: BigInt!
+  # previous illiq ratio (used for this swap's fee calc)
+  previousIlliq: BigInt!
+  # illiq ratio of the most recent swap
+  illiq: BigInt!
 }
 
 type BeforeSwapAnalytics @entity(immutable: true) {
-  id: Bytes!
-  poolId: Bytes! # bytes32
-  sender: Bytes! # address
-  sqrtPriceX96: BigInt! # uint256
-  estimatedSwapAmount1: BigInt! # uint256
-  estimatedPriceImpact: BigInt! # uint256
-  dynamicFee: Int! # uint24
-  zeroForOne: Boolean! # bool
-  timestamp: BigInt! # uint256
+  # txn hash + "#" + index in swaps Transaction array
+  id: ID!
+  # txn hash
+  transactionHash: String!
+  # block number
   blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  # timestamp of txn
+  timestamp: BigInt!
+  # poolId
+  poolId: Pool!
+  # sender of the swap (router?)
+  sender: Bytes!
+  # txn origin (EOA that initiated the txn)
+  origin: Bytes!
+  # The sqrt(price) of the pool after the swap, as a Q64.96
+  sqrtPriceX96: BigInt!
+  # estimated swap amount token1
+  estimatedSwapAmount1: BigInt!
+  # estimated price impact
+  estimatedPriceImpact: BigInt
+  # dynamic fee to be charged in pips
+  dynamicFee: BigInt!
+}
+
+type AfterSwapAnalytics @entity(immutable: true) {
+  # txn hash + "#" + index in swaps Transaction array
+  id: ID!
+  # txn hash
+  transactionHash: String!
+  # block number
+  blockNumber: BigInt!
+  # timestamp of txn
+  timestamp: BigInt!
+  # poolId
+  poolId: Pool!
+  # sender of the swap (router?)
+  sender: Bytes!
+  # txn origin (EOA that initiated the txn)
+  origin: Bytes!
+  # The sqrt(price) of the pool after the swap, as a Q64.96
+  sqrtPriceX96: BigInt!
+  # real swap amount token1
+  swapAmount1: BigInt!
+  # real price impact
+  priceImpact: BigInt!
+  # illiquidity ratio
+  illiq: BigInt!
 }
