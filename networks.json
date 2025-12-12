@@ -1,8 +1,8 @@
 {
   "mainnet": {
     "ImpactHook": {
-      "address": "0x2D2523c292359e7DEa2617214cb5AE62C79fB0c0",
-      "startBlock": 23927280
+      "address": "0xBa8a1045f8412cd13a525CeA2832F599E4fa60c0",
+      "startBlock": 23996577
     },
     "PoolManager": {
       "address": "0x000000000004444c5dc75cB358380D2e3dE08A90"

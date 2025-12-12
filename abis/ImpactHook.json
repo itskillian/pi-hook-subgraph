@@ -695,8 +695,6 @@
     "inputs": [{ "internalType": "PoolId", "name": "", "type": "bytes32" }],
     "name": "poolData",
     "outputs": [
-      { "internalType": "uint24", "name": "minFee", "type": "uint24" },
-      { "internalType": "int8", "name": "deltaDecimals", "type": "int8" },
       {
         "internalType": "uint160",
         "name": "sqrtPriceX96Before",
